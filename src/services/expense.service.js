@@ -16,5 +16,5 @@ export async function saveExpenses(data) {
     .catch((err) => {
       message: err;
     });
-  return resp.message;
+  return resp;
 }

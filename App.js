@@ -4,6 +4,9 @@ import {
   MD3LightTheme as DefaultTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
+import { Provider } from "react-redux";
+import { store, persistor } from "./src/state/store";
+import { PersistGate } from "redux-persist/integration/react";
 import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -14,6 +17,8 @@ import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen/SignupScreen";
 import SettingsScreen from "./src/screens/SettingsScreen/SettingsScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CalendarScreen from "./src/screens/CalendarScreen/CalendarScreen";
+import ReportScreen from "./src/screens/ReportScreen/ReportScreen";
 const Tab = createMaterialBottomTabNavigator();
 const theme = {
   ...DefaultTheme,
@@ -61,6 +66,13 @@ const theme = {
   },
 };
 
+function authNavs() {
+  return (
+    <>
+      <Tab.Navigator initialRouteName="LoginScreen"></Tab.Navigator>
+    </>
+  );
+}
 export default function App() {
   const [isSignedIn, setSignedIn] = React.useState(false);
   const detectLogin = async () => {
@@ -74,100 +86,105 @@ export default function App() {
   React.useEffect(() => {
     detectLogin();
   }, []);
+
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator initialRouteName="LoginScreen">
-          {isSignedIn ? (
-            <>
-              <Tab.Screen
-                name="Expense"
-                component={HomeScreen}
-                options={{
-                  tabBarLabel: "Expense",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="cash-multiple"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Calendar"
-                component={HomeScreen}
-                options={{
-                  tabBarLabel: "Calendar",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="calendar"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Report"
-                component={HomeScreen}
-                options={{
-                  tabBarLabel: "Report",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="chart-arc"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                options={{
-                  tabBarLabel: "Settings",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="account-cog"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Tab.Screen
-                name="LoginScreen"
-                component={LoginScreen}
-                options={{
-                  tabBarLabel: "Login",
-                  tabBarIcon: ({ color }) => (
-                    <AntDesign name="login" color={color} size={26} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="SignupScreen"
-                component={SignupScreen}
-                options={{
-                  tabBarLabel: "Sign up",
-                  tabBarIcon: ({ color }) => (
-                    <Ionicons name="person-add" color={color} size={26} />
-                  ),
-                }}
-              />
-            </>
-          )}
-        </Tab.Navigator>
-      </NavigationContainer>
-      {/* <BottomNavigation
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <NavigationContainer>
+            <Tab.Navigator>
+              {isSignedIn ? (
+                <>
+                  <Tab.Screen
+                    name="Expense"
+                    component={HomeScreen}
+                    options={{
+                      tabBarLabel: "Expense",
+                      tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                          name="cash-multiple"
+                          color={color}
+                          size={26}
+                        />
+                      ),
+                    }}
+                  />
+                  <Tab.Screen
+                    name="Calendar"
+                    component={CalendarScreen}
+                    options={{
+                      tabBarLabel: "Calendar",
+                      tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                          name="calendar"
+                          color={color}
+                          size={26}
+                        />
+                      ),
+                    }}
+                  />
+                  <Tab.Screen
+                    name="Report"
+                    component={ReportScreen}
+                    options={{
+                      tabBarLabel: "Report",
+                      tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                          name="chart-arc"
+                          color={color}
+                          size={26}
+                        />
+                      ),
+                    }}
+                  />
+                  <Tab.Screen
+                    name="Settings"
+                    component={SettingsScreen}
+                    options={{
+                      tabBarLabel: "Settings",
+                      tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                          name="account-cog"
+                          color={color}
+                          size={26}
+                        />
+                      ),
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Tab.Screen
+                    name="LoginScreen"
+                    component={LoginScreen}
+                    options={{
+                      tabBarLabel: "Login",
+                      tabBarIcon: ({ color }) => (
+                        <AntDesign name="login" color={color} size={26} />
+                      ),
+                    }}
+                  />
+                  <Tab.Screen
+                    name="SignupScreen"
+                    component={SignupScreen}
+                    options={{
+                      tabBarLabel: "Sign up",
+                      tabBarIcon: ({ color }) => (
+                        <Ionicons name="person-add" color={color} size={26} />
+                      ),
+                    }}
+                  />
+                </>
+              )}
+            </Tab.Navigator>
+          </NavigationContainer>
+          {/* <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
         renderScene={renderScene}
       /> */}
+        </PersistGate>
+      </Provider>
     </PaperProvider>
   );
 }

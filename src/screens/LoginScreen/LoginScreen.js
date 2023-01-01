@@ -10,10 +10,13 @@ import {
 import { Button, TextInput } from "react-native-paper";
 import { login } from "../../services/auth.service";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../actions/auth.action";
 export default function LoginScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   async function handleLogin() {
     if (email && password) {
       let data = { email, password };
@@ -21,6 +24,7 @@ export default function LoginScreen(props) {
       console.log(res);
       if (res.token) {
         await AsyncStorage.setItem("token", res.token);
+        dispatch(loginAction(res.token));
       } else {
         console.log("sheesh");
       }
