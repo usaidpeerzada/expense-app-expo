@@ -1,0 +1,90 @@
+export const categories = [
+  { label: "Grocery", key: "grocery", value: "grocery", color: "#DF00FF" },
+  { label: "Gifts", key: "gifts", value: "gifts", color: "#C54B8C" },
+  { label: "Cafe", key: "cafe", value: "cafe", color: "#B768A2" },
+  { label: "Health", key: "health", value: "health", color: "#9A4EAE" },
+  {
+    label: "Travel",
+    key: "commute",
+    value: "commute",
+    color: "#E0B0FF",
+    icon: "airplane",
+  },
+  {
+    label: "Electronics",
+    key: "electronics",
+    value: "electronics",
+    icon: "cellphone",
+    color: "#D8BFD8",
+  },
+  { label: "Laundry", key: "laundry", value: "laundry", color: "#4E2A84" },
+  {
+    label: "Shopping",
+    key: "shopping",
+    value: "shopping",
+    icon: "shopping",
+    color: "#DE6FA1",
+  },
+  {
+    label: "Restaurant",
+    key: "restaurant",
+    value: "restaurant",
+    color: "#86608E",
+  },
+  { label: "Fitness", key: "fitness", value: "fitness", color: "#DA70D6" },
+  {
+    label: "Education",
+    key: "education",
+    value: "education",
+    color: "#702963",
+  },
+  { label: "Tools", key: "tools", value: "tools", color: "#78184A" },
+  { label: "Fuel", key: "fuel", value: "fuel", color: "#72246C" },
+  { label: "Donation", key: "donation", value: "donation", color: "teal" },
+  { label: "Zakat", key: "zakat", value: "zakat", color: "green" },
+];
+
+export const expenseTypes = [
+  { label: "Expense", key: "expense", value: "expense" },
+  { label: "Balance", key: "balance", value: "balance" },
+  { label: "Income", key: "income", value: "income" },
+];
+
+export const currencies = [
+  {
+    symbol: "$",
+    name: "US Dollar",
+    symbol_native: "$",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "USD",
+    name_plural: "US dollars",
+  },
+  {
+    symbol: "€",
+    name: "Euro",
+    symbol_native: "€",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "EUR",
+    name_plural: "euros",
+  },
+  {
+    symbol: "£",
+    name: "British Pound Sterling",
+    symbol_native: "£",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "GBP",
+    name_plural: "British pounds sterling",
+  },
+  {
+    symbol: "₹",
+    name: "Indian Rupee",
+    symbol_native: "টকা",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "INR",
+    name_plural: "Indian rupees",
+  },
+];
